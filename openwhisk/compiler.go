@@ -59,7 +59,10 @@ func (ap *ActionProxy) CompileAction(main string, srcDir string, binDir string) 
 	}
 
 	// gather stdout and stderr
-	out, err := cmd.CombinedOutput()
+	//CombinedOutput() combines stdout and stderr and if either isn't empty, it returns them as an error, which
+	//doesn't make much sense because package resolution guarantees stdout :/
+	//out, err := cmd.CombinedOutput()
+	out, err := cmd.Output()
 	Debug("compiler out: %s, %v", out, err)
 	if len(out) > 0 {
 		return fmt.Errorf("%s", out)
