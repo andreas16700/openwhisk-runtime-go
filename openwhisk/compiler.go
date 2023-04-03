@@ -64,10 +64,11 @@ func (ap *ActionProxy) CompileAction(main string, srcDir string, binDir string) 
 	//out, err := cmd.CombinedOutput()
 	out, err := cmd.Output()
 	Debug("compiler out: %s, %v", out, err)
-	if len(out) > 0 {
-		return fmt.Errorf("%s", out)
-	}
+	//if len(out) > 0 {
+	//	return fmt.Errorf("%s", out)
+	//}
 	if err != nil {
+		fmt.Errorf("%v", err)
 		return err
 	}
 	return nil
