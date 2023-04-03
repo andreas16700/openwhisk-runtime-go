@@ -199,8 +199,8 @@ func (ap *ActionProxy) ExtractAndCompileIO(r io.Reader, w io.Writer, main string
 	msg := fmt.Sprintf("Compiled to %s\n", file)
 	print(msg)
 	print(file)
-	print(err)
 	if err != nil {
+		fmt.Printf("error: %v\n", err)
 		log.Fatal(err)
 	}
 

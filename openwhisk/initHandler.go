@@ -153,7 +153,7 @@ func (ap *ActionProxy) ExtractAndCompile(buf *[]byte, main string) (string, erro
 	file, err := ap.ExtractAction(buf, "src")
 	if err != nil {
 		print("Error extracting file: ")
-		print(err)
+		fmt.Printf("error: %v\n", err)
 		return "", err
 	}
 	if file == "" {
@@ -180,7 +180,7 @@ func (ap *ActionProxy) ExtractAndCompile(buf *[]byte, main string) (string, erro
 	err = ap.CompileAction(main, srcDir, binDir)
 	if err != nil {
 		print("Error compiling:  ")
-		print(err)
+		fmt.Printf("error: %v\n", err)
 		return "", err
 	}
 
