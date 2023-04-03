@@ -149,11 +149,15 @@ func (ap *ActionProxy) initHandler(w http.ResponseWriter, r *http.Request) {
 func (ap *ActionProxy) ExtractAndCompile(buf *[]byte, main string) (string, error) {
 
 	// extract action in src folder
+	print("Extracting action")
 	file, err := ap.ExtractAction(buf, "src")
 	if err != nil {
+		print("Error extracting file: ")
+		print(err)
 		return "", err
 	}
 	if file == "" {
+		print("Error extracting file: empty filename!")
 		return "", fmt.Errorf("empty filename")
 	}
 
@@ -175,12 +179,17 @@ func (ap *ActionProxy) ExtractAndCompile(buf *[]byte, main string) (string, erro
 	os.Mkdir(binDir, 0755)
 	err = ap.CompileAction(main, srcDir, binDir)
 	if err != nil {
+		print("Error compiling:  ")
+		print(err)
 		return "", err
 	}
 
 	// check only if the file exist
 	if _, err := os.Stat(binFile); os.IsNotExist(err) {
+		print("Compiled file doesn't exist!")
+		print(binFile)
 		return "", fmt.Errorf("cannot compile")
 	}
+	print("Binary file: ", binFile)
 	return binFile, nil
 }
